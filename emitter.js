@@ -129,9 +129,5 @@ function toEmitter(object) {
 	return EventEmitter(object)
 }
 
-if (typeof module !== 'undefined' && module.exports) {
-	module.exports = EventEmitter
-} else {
-	self.Galactic || (self.Galactic = {})
-	Galactic.emitter = EventEmitter
-}
+global.Galactic || (global.Galactic = {})
+global.Galactic.emitter = EventEmitter

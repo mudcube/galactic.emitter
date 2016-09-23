@@ -1,6 +1,6 @@
 {
   "name": "galactic.emitter",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "",
   "main": "emitter.js",
   "author": "Michael Deal <hello@galactic.ink> (https://galactic.ink)",
@@ -8,5 +8,13 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mudcube/galactic.emitter.git"
+  },
+  "scripts": {
+    "prepublish": "browserify emitter.js -o dist/emitter.js -t [ babelify --presets [ es2015 ] ]"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.14.0",
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.0"
   }
 }
