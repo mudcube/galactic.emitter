@@ -1,1 +1,1 @@
-# galactic.emitter
+# galactic.emitter(...)

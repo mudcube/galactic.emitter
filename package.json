@@ -1,0 +1,12 @@
+{
+  "name": "galactic.emitter",
+  "version": "0.0.1",
+  "description": "",
+  "main": "emitter.js",
+  "author": "Michael Deal <hello@galactic.ink> (https://galactic.ink)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mudcube/galactic.emitter.git"
+  }
+}
