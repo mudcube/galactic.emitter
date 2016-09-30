@@ -9,7 +9,8 @@
     "url": "git+https://github.com/mudcube/galactic.emitter.git"
   },
   "scripts": {
-    "postinstall": "browserify emitter.js -o dist/emitter.js -t [ babelify --presets [ es2015 ] ]"
+    "build": "browserify emitter.js -o dist/emitter.js -t [ babelify --presets [ es2015 ] ]",
+    "prepublish": "npm run build"
   },
   "main": "dist/emitter.js",
   "devDependencies": {
