@@ -3,7 +3,7 @@
 ```js
 var id = 'dosomething'
 var handler = function () {}
-var emitter = new Galactic.emitter(scope)
+var emitter = Galactic.emitter(scope)
 emitter.on(id, handler) // register handler
 emitter.on.handlers{} // contains all registered handlers
 emitter.off(id) // unregister handler

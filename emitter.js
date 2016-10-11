@@ -39,22 +39,22 @@ function EventEmitter(target) {
 			return overrides
 		}
 
-		emitter.add = function (handler, that) {
+		emitter.attach = function (handler, that) {
 			var fid = createId(type, handler)
 			if (stack[fid] === undefined && handler) {
 				stack[fid] = handler
 			}
 			return {
-				add() {
+				attach() {
 					stack[fid] = handler
 				},
-				remove() {
+				detach() {
 					delete stack[fid]
 				}
 			}
 		}
 
-		emitter.remove = function (handler) {
+		emitter.detach = function (handler) {
 			var fid = createId(type, handler)
 			if (stack[fid] !== undefined && handler) {
 				delete stack[fid]
@@ -68,11 +68,12 @@ function EventEmitter(target) {
 		if (alwaysNotify[type]) {
 			handler(...alwaysNotify[type])
 		}
-
-		var emitter = listener(type).add(handler)
+		var emitter = listener(type).attach(handler)
 		var out = toEmitter(this)
-		out.add = emitter.add //- depreciate
-		out.remove = emitter.remove //- depreciate
+		out.add = emitter.attach //- depreciate
+		out.remove = emitter.detach //- depreciate
+		out.attach = emitter.attach
+		out.detach = emitter.detach
 		out.on = this.on
 		out.off = this.off
 		out.emit = this.emit
@@ -83,7 +84,7 @@ function EventEmitter(target) {
 		var emitter
 		return emitter = target.on(type, function () {
 			handler(...arguments)
-			emitter.remove()
+			emitter.detach()
 		})
 	}
 
@@ -91,7 +92,7 @@ function EventEmitter(target) {
 
 	target.off = function (type, handler) {
 		if (handler) {
-			listener(type).remove(handler)
+			listener(type).detach(handler)
 		} else {
 			delete handlers[type]
 		}
@@ -122,7 +123,6 @@ function toEmitter(object) {
 	if (!object.then) {
 		return {}
 	}
-
 	if (object.on && object.off && object.emit) {
 		return object
 	}
