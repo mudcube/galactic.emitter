@@ -1,3 +1,5 @@
+var uniqueId = 1
+
 function EventEmitter(target) {
 	target || (target = {})
 	if (target.on || target.off || target.emit) {
@@ -6,7 +8,6 @@ function EventEmitter(target) {
 
 	var alwaysNotify = {}
 	var handlers = {}
-	var uniqueId = 1
 
 	function createId(type, handler) {
 		if (typeof handler !== 'function') {
@@ -14,7 +15,7 @@ function EventEmitter(target) {
 			return
 		}
 
-		var handlerId = handler.uniqueId || (handler.uniqueId = uniqueId++)
+		var handlerId = handler._emitterId || (handler._emitterId = uniqueId++)
 		return `${type}.${handlerId}`
 	}
 
@@ -60,6 +61,8 @@ function EventEmitter(target) {
 				delete stack[fid]
 			}
 		}
+
+		emitter.stack = stack
 
 		return emitter
 	}
